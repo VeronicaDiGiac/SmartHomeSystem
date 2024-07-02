@@ -1,0 +1,25 @@
+<div
+  class="card text-bg-dark"
+  style="max-width: 18rem"
+  [ngClass]="'bg-' + datoCard.colore"
+>
+  <div class="card-header fs-5">{{ datoCard.titolo }}</div>
+  <div class="card-body">
+    <button
+      type="button"
+      class="btn active m-2"
+      data-bs-toggle="button"
+      aria-pressed="true"
+    >
+      ON
+    </button>
+    <button
+      type="button"
+      class="btn active m-2"
+      data-bs-toggle="button"
+      aria-pressed="true"
+    >
+      OFF
+    </button>
+  </div>
+</div>

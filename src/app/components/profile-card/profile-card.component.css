@@ -1,0 +1,10 @@
+.profile-icon {
+  padding: 10px;
+  margin: 0 auto;
+  border-radius: 50%;
+}
+
+i {
+  cursor: pointer;
+  text-align: center;
+}
