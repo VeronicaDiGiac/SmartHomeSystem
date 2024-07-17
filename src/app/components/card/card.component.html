@@ -1,21 +1,35 @@
-<div class="card text-center">
+<div class="d-flex justify-content-start mt-3">
+  <input
+    class="form-control-sm w-50 me-2"
+    list="datalistOptions"
+    id="exampleDataList"
+    placeholder="City"
+    [(ngModel)]="inputCityValue"
+  />
+  <button class="btn btn-dark" type="button" (click)="getInputValue()">
+    Check the wheater!
+  </button>
+</div>
+
+<div class="card text-center mt-4">
   <div class="card-header">
-    <h5 class="card-title">{{ dato.titolo }}</h5>
+    <h5 class="card-title">Welcome Veronica!</h5>
   </div>
   <div class="card-body">
-    <h1 class="display-3">{{ dato.temperatura }}</h1>
-    <p class="lead">{{ dato.paragrafo }}</p>
-    <!-- Al momento l'immagine non c'è o è fittizia deve cambiare in base al meteo poi si pensa come, per ora ce l'hai settata come stringa vuota nei json  -->
-    <img
-      src="https://www.example.com/sunny-icon.png"
-      alt="Soleggiato"
-      class="img-fluid my-3"
-      style="width: 100px"
-    />
+    <h1 class="display-3"></h1>
+    {{ responseDataWheater.current.temperature_2m }}°
+    <p class="lead"></p>
+
     <ul class="list-group list-group-flush">
-      <li class="list-group-item">Umidità: {{ dato.umidita }}</li>
-      <li class="list-group-item">Vento: {{ dato.vento }}</li>
+      <li class="list-group-item">
+        Precipitazioni:{{ responseDataWheater.current.precipitation }}
+      </li>
+      <li class="list-group-item">
+        Umidità: {{ responseDataWheater.current.relative_humidity_2m }}
+      </li>
     </ul>
+    <li class="list-group-item">
+      Vento: {{ responseDataWheater.current.wind_speed_10m }}
+    </li>
   </div>
-  <div class="card-footer text-muted">Ultimo aggiornamento: 10:30 AM</div>
 </div>

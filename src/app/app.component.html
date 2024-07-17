@@ -1,14 +1,14 @@
 <div class="container">
   <div class="row">
-    <div class="col">
+    <div class="col-12">
       <app-navbar class="mb-5"></app-navbar>
     </div>
   </div>
   <div class="container">
     <div class="row">
-      <div class="col">
-        <app-card class="p-5" [dato]="datiService.listaDati[0]"></app-card>
-        <div class="d-flex justify-content-between align-items-center">
+      <div class="col-12 col-md-6">
+        <app-card></app-card>
+        <div class="d-flex justify-content-between align-items-center mt-3">
           <app-titolo
             [text]="'Veronicas House'"
             class="text-white"
@@ -16,22 +16,21 @@
           <app-dropdown></app-dropdown>
         </div>
       </div>
-      <div class="col mt-3">
+      <div class="col-12 col-md-6 mt-3">
         <div class="container">
           <app-titolo
             [text]="'My Devices'"
             class="text-bg-primary"
           ></app-titolo>
-          <div class="row row-cols-2 pt-3">
+          <div class="row row-cols-1 row-cols-md-2 pt-3">
             <div
               *ngFor="let datoCard of datiService.listaDatiOnOffDevices"
               class="col p-2"
             >
               <app-button-card [datoCard]="datoCard"></app-button-card>
-              <div class="container"></div>
             </div>
-            <app-titolo [text]="'Members'" class="text-white m-3"></app-titolo>
           </div>
+          <app-titolo [text]="'Members'" class="text-white m-3"></app-titolo>
           <app-profile-card></app-profile-card>
         </div>
       </div>

@@ -29,5 +29,12 @@ import { DropdownComponent } from './components/dropdown/dropdown.component';
 })
 export class AppComponent {
   title = 'smart-home-system-app';
+  responseApi!: any;
   constructor(public datiService: datiService) {}
+  // , private apiService: ApiService) {
+  //   this.apiService
+  //     .getDailyMeteo()
+  //     .subscribe((response) => {console.log(response)
+  //     this.responseApi= response
+  //     });
 }

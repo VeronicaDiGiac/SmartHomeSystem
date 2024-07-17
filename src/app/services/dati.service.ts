@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { datiModel, listaCardModel } from '../Models/dati.model';
+import { listaCardModel } from '../Models/dati.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class datiService {
-  listaDati: Array<datiModel> = [
+  listaDati: Array<any> = [
     {
       id: 1,
       titolo: 'Welcome Veronica!',
