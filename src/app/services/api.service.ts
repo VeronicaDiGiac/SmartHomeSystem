@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { WeatherResponseModel } from '../Models/dati.model';
 
 @Injectable({
   providedIn: 'root',
@@ -13,8 +14,11 @@ export class ApiService {
     return this.http.get<any>(url);
   }
 
-  public getWeather(latitude: number, longitude: number): Observable<any> {
+  public getWeather(
+    latitude: number,
+    longitude: number
+  ): Observable<WeatherResponseModel> {
     const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,precipitation,wind_speed_10m`;
-    return this.http.get<any>(weatherUrl);
+    return this.http.get<WeatherResponseModel>(weatherUrl);
   }
 }

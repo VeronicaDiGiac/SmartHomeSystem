@@ -1,0 +1,42 @@
+<div
+  *ngIf="selectedRoom"
+  class="card text-bg-light mb-3"
+  style="max-width: 50rem"
+>
+  <div class="card-body">
+    <div class="d-flex justify-content-between">
+      <h5 class="card-title m-3">{{ title }}</h5>
+      <div>
+        <button
+          type="button"
+          class="btn active m-2"
+          data-bs-toggle="button"
+          aria-pressed="true"
+        >
+          ON
+        </button>
+        <button
+          type="button"
+          class="btn active"
+          data-bs-toggle="button"
+          aria-pressed="true"
+        >
+          OFF
+        </button>
+      </div>
+    </div>
+  </div>
+  <ng-template #template1>
+    <div>Contenuto Template 1</div>
+  </ng-template>
+
+  <ng-template #template2>
+    <div>Contenuto Template 2</div>
+  </ng-template>
+
+  <ng-template #template3>
+    <div>Contenuto Template 3</div>
+  </ng-template>
+
+  <div *ngIf="currentTemplate" [ngTemplateOutlet]="currentTemplate"></div>
+</div>

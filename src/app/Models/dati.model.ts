@@ -12,6 +12,7 @@ export interface listaCardModel {
   id: number;
   titolo: string;
   colore: string;
+  img: string;
 }
 
 // export interface Meteo {
@@ -96,4 +97,10 @@ export interface WeatherResponseModel {
   timezone: string;
   timezone_abbreviation: string;
   utc_offset_seconds: number;
+}
+
+export interface listaDatiRoomsCardModel {
+  id: number;
+  titolo: string;
+  img: string;
 }

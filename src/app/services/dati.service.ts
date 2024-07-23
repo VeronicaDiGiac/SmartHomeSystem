@@ -21,10 +21,48 @@ export class datiService {
       id: 1,
       titolo: 'Refrigerator',
       colore: 'primary',
+      img: '../../assets/icon/fridge.png',
     },
-    { id: 2, titolo: 'Router', colore: 'success' },
-    { id: 3, titolo: 'Lamps', colore: 'info ' },
-    { id: 4, titolo: 'Music System', colore: 'warning' },
+    {
+      id: 2,
+      titolo: 'Router',
+      colore: 'success',
+      img: '../../assets/icon/wifi-router.png',
+    },
+    {
+      id: 3,
+      titolo: 'Lamps',
+      colore: 'info ',
+      img: '../../assets/icon/light.png',
+    },
+    {
+      id: 4,
+      titolo: 'Music System',
+      colore: 'warning',
+      img: '../../assets/icon/music.png',
+    },
+  ];
+  listaDatiRoomsCards: Array<any> = [
+    {
+      id: 1,
+      titolo: 'Refrigerator',
+      img: '../../assets/icon/fridge.png',
+    },
+    {
+      id: 2,
+      titolo: 'AirConditioner',
+      img: '../../assets/icon/air-conditioner.png',
+    },
+    {
+      id: 3,
+      titolo: 'Lamps',
+      img: '../../assets/icon/light.png',
+    },
+    {
+      id: 4,
+      titolo: 'Temperature',
+      img: '../../assets/icon/thermometer.png',
+    },
   ];
   constructor() {}
 }

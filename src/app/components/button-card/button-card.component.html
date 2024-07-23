@@ -1,13 +1,12 @@
-<div
-  class="card text-bg-dark"
-  style="max-width: 18rem"
-  [ngClass]="'bg-' + datoCard.colore"
->
-  <div class="card-header fs-5">{{ datoCard.titolo }}</div>
+<div class="card text-bg-white" style="max-width: 18rem">
+  <div class="d-flex justify-content-between">
+    <h5 class="p-2">{{ datoCard.titolo }}</h5>
+    <img class="m-2" style="width: 15%" [src]="datoCard.img" alt="" />
+  </div>
   <div class="card-body">
     <button
       type="button"
-      class="btn active m-2"
+      class="btn active"
       data-bs-toggle="button"
       aria-pressed="true"
     >

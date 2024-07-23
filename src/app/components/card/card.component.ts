@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { datiModel } from '../../Models/dati.model';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ApiService } from '../../api.service';
+import { ApiService } from '../../services/api.service';
 import { WeatherResponseModel } from '../../Models/dati.model';
 import { LocalStorageService } from '../../services/localestorage';
 
@@ -13,22 +13,33 @@ import { LocalStorageService } from '../../services/localestorage';
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.css'],
 })
-export class CardComponent {
+export class CardComponent implements OnInit {
   @Input() dato!: datiModel;
   @Input() inputCityValue: string = '';
-  @Input() responseData!: any; // Tipizzato come any per il debug
-  @Input() responseDataWheater!: WeatherResponseModel;
-
-  // img: string =
-  //   'https://t3.ftcdn.net/jpg/06/25/98/80/360_F_625988006_32h8ceOn1gLZaxHrrzSkAv1BSVtnvCfo.jpg';
+  @Input() responseData!: any; // Tipizzati come any per il debug
+  @Input() responseDataWheater!: any;
+  // Per azzerare il contenuto delle variabili senza tipizzare a any puoi modifcare l'interfaccia assegnando alle proprietà interessate | null
 
   constructor(
     private apiService: ApiService,
     private LocalStorageService: LocalStorageService
   ) {}
 
+  //Oninit viene eseguito dopo che tutte le proprietà di input del componente sono state inizializzate.A differenza del costruttore, che viene chiamato quando l'istanza del componente è creata, ngOnInit viene chiamato dopo che Angular ha inizializzato completamente il componente. Questo lo rende ideale per operazioni che dipendono dalla completa inizializzazione del componente. Praticamente io salvo i dati effettivamente dopo averli inseriti ed inizializzati dunque ngOninit fa questo.
+  ngOnInit() {
+    // Recupera i dati salvati nel LocalStorage quando il componente viene inizializzato
+    this.responseDataWheater = this.LocalStorageService.getItem(
+      'responseDataWheater'
+    );
+    this.inputCityValue = this.LocalStorageService.getItem('inputCityValue');
+
+    // Questo verifica se i dati sono presenti, altrimenti sarebbe false, dunque prima controlla che esistano e poi gli assegna la variabile.
+  }
+
   getInputValue() {
     console.log(this.inputCityValue);
+    // Salva l'input della città nel LocalStorage
+    this.LocalStorageService.setItem('inputCityValue', this.inputCityValue);
     this.getCityData(this.inputCityValue);
   }
 
@@ -42,11 +53,14 @@ export class CardComponent {
         Array.isArray(response.results) &&
         response.results.length > 0
       ) {
-        this.responseData = response.results[0]; // Supponiamo di prendere il primo risultato
-        const latitude = this.responseData.latitude;
-        const longitude = this.responseData.longitude;
+        // Supponiamo di prendere il primo risultato
+        // Salva i dati nel LocalStorage SUBITO DOPO LA CHIAMATA API.
+
+        const latitude = response.results[0].latitude;
+        const longitude = response.results[0].longitude;
         console.log('Latitude:', latitude, 'Longitude:', longitude);
-        if (latitude !== undefined && longitude !== undefined) {
+
+        if (latitude != undefined && longitude != undefined) {
           this.getWeatherData(latitude, longitude);
           console.log('getWeatherData chiamata');
         }
@@ -59,86 +73,20 @@ export class CardComponent {
   getWeatherData(latitude: number, longitude: number) {
     this.apiService.getWeather(latitude, longitude).subscribe((response) => {
       console.log('getWeather response:', response);
+
       this.responseDataWheater = response;
+      this.LocalStorageService.setItem('responseDataWheater', response); // Salva i dati nel LocalStorage SUBITO DOPO LA CHIAMATA API.
+      console.log(
+        'this.LocalStorageService response:',
+        this.LocalStorageService.getItem('responseDataWheater')
+      );
     });
   }
 
-  // ngOnInit(): void {
-  //   // Sottoscrive il signal per ottenere il valore iniziale
-  //   this.LocalStorageService.getInputValueSignal().subscribe((value) => {
-  //     console.log('value');
-  //     this.inputCityValue = value;
-  //   });
-  // }
-  // onInputChange(value: string): void {
-  //   this.LocalStorageService.saveInputValue(value);
-  // }
+  clearData() {
+    // Azzeramento delle variabili
+    this.LocalStorageService.removeItem('responseDataWheater');
+    this.LocalStorageService.removeItem('inputCityValue');
+    // Rimozione dei dati dal LocalStorage
+  }
 }
-
-// Salvare città,temperatura, precipitazioni,umidità e vento
-
-// storeWeatherDataToLocalStorage() {
-//   this.LocalStorageService.setItem('citta', this.inputCityValue);
-//   this.LocalStorageService.setItem(
-//     'temperatura',
-//     this.responseDataWheater.current.temperature_2m.toString()
-//   );
-//   this.LocalStorageService.setItem(
-//     'precipitazioni',
-//     this.responseDataWheater.current.precipitation.toString()
-//   );
-//   this.LocalStorageService.setItem(
-//     'umidita',
-//     this.responseDataWheater.current.relative_humidity_2m.toString()
-//   );
-//   this.LocalStorageService.setItem(
-//     'vento',
-//     this.responseDataWheater.current.wind_speed_10m.toString()
-//   );
-// }
-
-// retrieveFromLocalStorage() {
-//   const value = this.LocalStorageService.getItem('InputKey');
-//   console.log(value);
-// }
-
-// versione codice senza controllare la struttura dati della result dell'api.
-
-// export class CardComponent {
-//   @Input() dato!: datiModel;
-//   @Input() inputCityValue: string = '';
-//   @Input() responseData!: any; // Tipizzato come any per il debug
-//   @Input() responseDataWheater!: any;
-//   img: string =
-//     'https://t3.ftcdn.net/jpg/06/25/98/80/360_F_625988006_32h8ceOn1gLZaxHrrzSkAv1BSVtnvCfo.jpg';
-
-//   constructor(private apiService: ApiService) {}
-
-//   getInputValue() {
-//     console.log(this.inputCityValue);
-//     this.getCityData(this.inputCityValue);
-//   }
-
-//   getCityData(inputCityValue: string) {
-//     this.apiService.getCityName(inputCityValue).subscribe((response) => {
-//       console.log('getCityName response:', response);
-
-//       // Supponiamo che response.results sia sempre un array e contenga dati
-//       this.responseData = response.results[0]; // Supponiamo di prendere il primo risultato
-//       const latitude = this.responseData.latitude;
-//       const longitude = this.responseData.longitude;
-//       console.log('Latitude:', latitude, 'Longitude:', longitude);
-
-//       // Chiamata diretta senza controllo
-//       this.getWeatherData(latitude, longitude);
-//       console.log('getWeatherData chiamata');
-//     });
-//   }
-
-//   getWeatherData(latitude: number, longitude: number) {
-//     this.apiService.getWeather(latitude, longitude).subscribe((response) => {
-//       console.log('getWeather response:', response);
-//       this.responseDataWheater = response;
-//     });
-//   }
-// }
