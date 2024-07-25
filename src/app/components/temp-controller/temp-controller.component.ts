@@ -1,15 +1,14 @@
 import {
   Component,
-  input,
   Input,
   ViewChild,
   OnChanges,
+  OnInit,
   AfterViewInit,
 } from '@angular/core';
 import { TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgIf } from '@angular/common';
-
 import { SimpleChanges } from '@angular/core';
 import { listaDatiRoomsCardModel } from '../../Models/dati.model';
 
@@ -20,32 +19,62 @@ import { listaDatiRoomsCardModel } from '../../Models/dati.model';
   templateUrl: './temp-controller.component.html',
   styleUrl: './temp-controller.component.css',
 })
-export class TempControllerComponent implements OnChanges {
-  @Input() title: string = ' titolo provvisorio';
+export class TempControllerComponent
+  implements OnChanges, OnInit, AfterViewInit
+{
+  @Input() title: string = 'titolo provvisorio';
 
-  @Input() selectedRoom!: listaDatiRoomsCardModel;
+  //  ho salvato dentro la proprietà selected room tipizzata con le proprietà di ogni scheda con dentro frigo, condizionatore ecc, perchè continene l'id delle card e gliele posso passare allo Switch
+  @Input() selectedDevice!: listaDatiRoomsCardModel;
 
   @ViewChild('template1') template1!: TemplateRef<any>;
   @ViewChild('template2') template2!: TemplateRef<any>;
   @ViewChild('template3') template3!: TemplateRef<any>;
 
-  currentTemplate!: TemplateRef<any>;
+  currentTemplate: TemplateRef<any> = this.template1;
+
+  // PER IL DEBUG
+  ngAfterViewInit() {
+    setTimeout(() => {
+      if (this.template1) {
+        console.log('afterviewininit template1');
+      } else {
+        console.log('afterviewininit undefined');
+      }
+      this.currentTemplate = this.template1;
+    });
+  }
+  // DEBUG
+  ngOnInit() {
+    if (this.template1) {
+      console.log('oninit template1');
+    } else {
+      console.log('oninit undefined');
+    }
+  }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['selectedRoom']) {
-      // Utilizza setTimeout per garantire che la vista sia aggiornata
+    if (changes['selectedDevice']) {
+      // Utilizza setTimeout aggiornamento view
       setTimeout(() => {
+        if (this.template1) {
+          console.log('onchanges template1');
+        } else {
+          console.log('onchanges undefined');
+        }
+
         console.log('Template1:', this.template1);
         console.log('Template2:', this.template2);
         console.log('Template3:', this.template3);
+
         this.updateCurrentTemplate();
       });
     }
   }
 
   updateCurrentTemplate() {
-    if (this.selectedRoom) {
-      switch (this.selectedRoom.id) {
+    if (this.selectedDevice) {
+      switch (this.selectedDevice.id) {
         case 1:
           this.currentTemplate = this.template1;
           break;
@@ -55,6 +84,8 @@ export class TempControllerComponent implements OnChanges {
         case 3:
           this.currentTemplate = this.template3;
           break;
+        default:
+          this.currentTemplate = this.template1;
       }
     }
   }

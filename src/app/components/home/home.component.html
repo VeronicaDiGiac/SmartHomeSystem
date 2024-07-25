@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <app-navbar class="mb-5"></app-navbar>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-md-6">
+        <app-wheather-card></app-wheather-card>
+        <div class="d-flex justify-content-between align-items-center mt-3">
+          <app-titolo
+            [text]="'Veronicas House'"
+            class="text-white"
+          ></app-titolo>
+          <app-dropdown></app-dropdown>
+        </div>
+        <div class="d-flex mt-3">
+          <div *ngFor="let datiRoomsCard of datiService.listaDatiRoomsCards">
+            <app-device-room-card
+              [datiRoomsCard]="datiRoomsCard"
+              (deviceSelected)="onDeviceSelected($event)"
+            ></app-device-room-card>
+          </div>
+        </div>
+        <app-temp-controller
+          [selectedDevice]="selectedDevice"
+        ></app-temp-controller>
+      </div>
+      <div class="col-12 col-md-6 mt-3">
+        <div class="container">
+          <app-titolo
+            [text]="'My Devices'"
+            class="text-bg-primary"
+          ></app-titolo>
+          <div class="row row-cols-1 row-cols-md-2 pt-3">
+            <div
+              *ngFor="let datoCard of datiService.listaDatiOnOffDevices"
+              class="col p-2"
+            >
+              <app-devices-button-card
+                [datoCard]="datoCard"
+              ></app-devices-button-card>
+            </div>
+          </div>
+          <app-titolo [text]="'Members'" class="text-white m-3"></app-titolo>
+          <app-profile-card></app-profile-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

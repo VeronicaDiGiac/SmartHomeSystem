@@ -6,8 +6,8 @@
     placeholder="City"
     [(ngModel)]="inputCityValue"
   />
-  <button class="btn btn-dark" type="button" (click)="getInputValue()">
-    Check the wheater!
+  <button class="btn btn-dark" type="button" (click)="wheatherManager()">
+    Check the wheather!
   </button>
 </div>
 
@@ -17,16 +17,14 @@
   </div>
   <div class="card-body">
     <h3 class="p-2">
-      Oggi ci sono {{ responseDataWheater.current.temperature_2m }}°
+      Today it's {{ responseDataWheater.current.temperature_2m }}°
     </h3>
     <div class="d-flex flex-row">
       <div class="p-2">
         <img src="../../../assets/icon/rain.png" style="width: 35px" alt="" />
       </div>
       <div class="p-2">
-        <h6>
-          Precipitazioni: {{ responseDataWheater.current.precipitation }}%
-        </h6>
+        <h6>precipitation: {{ responseDataWheater.current.precipitation }}%</h6>
       </div>
     </div>
     <div class="d-flex flex-row">
@@ -39,7 +37,7 @@
       </div>
       <div class="p-2">
         <h6>
-          Umidità: {{ responseDataWheater.current.relative_humidity_2m }}%
+          humidity: {{ responseDataWheater.current.relative_humidity_2m }}%
         </h6>
       </div>
     </div>
@@ -48,7 +46,7 @@
         <img src="../../../assets/icon/wind.png" style="width: 35px" alt="" />
       </div>
       <div class="p-2">
-        <h6>Vento: {{ responseDataWheater.current.wind_speed_10m }}</h6>
+        <h6>Wind: {{ responseDataWheater.current.wind_speed_10m }} km/h</h6>
       </div>
     </div>
   </div>

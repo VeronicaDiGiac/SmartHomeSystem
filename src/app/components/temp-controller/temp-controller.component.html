@@ -1,5 +1,5 @@
 <div
-  *ngIf="selectedRoom"
+  *ngIf="selectedDevice"
   class="card text-bg-light mb-3"
   style="max-width: 50rem"
 >
@@ -27,9 +27,8 @@
     </div>
   </div>
   <ng-template #template1>
-    <div>Contenuto Template 1</div>
+    <div>contenuto Template 1</div>
   </ng-template>
-
   <ng-template #template2>
     <div>Contenuto Template 2</div>
   </ng-template>
@@ -38,5 +37,5 @@
     <div>Contenuto Template 3</div>
   </ng-template>
 
-  <div *ngIf="currentTemplate" [ngTemplateOutlet]="currentTemplate"></div>
+  <ng-container *ngTemplateOutlet="currentTemplate"></ng-container>
 </div>
