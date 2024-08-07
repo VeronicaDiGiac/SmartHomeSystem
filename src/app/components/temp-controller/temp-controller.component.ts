@@ -5,10 +5,11 @@ import {
   OnChanges,
   OnInit,
   AfterViewInit,
+  input,
 } from '@angular/core';
 import { TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgIf } from '@angular/common';
+
 import { SimpleChanges } from '@angular/core';
 import { listaDatiRoomsCardModel } from '../../Models/dati.model';
 
@@ -22,7 +23,13 @@ import { listaDatiRoomsCardModel } from '../../Models/dati.model';
 export class TempControllerComponent
   implements OnChanges, OnInit, AfterViewInit
 {
-  @Input() title: string = 'titolo provvisorio';
+  title: string = 'titolo provvisorio';
+  currentIndexFridge: number = 2;
+  currentIndexAirCond: number = 23;
+  currentIndexTemperature: number = 20;
+  intervalValueFridge: Array<number> = [0, 5];
+  interValueAirCond: Array<number> = [15, 32];
+  interValueTemperature: Array<number> = [15, 35];
 
   //  ho salvato dentro la proprietà selected room tipizzata con le proprietà di ogni scheda con dentro frigo, condizionatore ecc, perchè continene l'id delle card e gliele posso passare allo Switch
   @Input() selectedDevice!: listaDatiRoomsCardModel;
@@ -30,6 +37,7 @@ export class TempControllerComponent
   @ViewChild('template1') template1!: TemplateRef<any>;
   @ViewChild('template2') template2!: TemplateRef<any>;
   @ViewChild('template3') template3!: TemplateRef<any>;
+  @ViewChild('template4') template4!: TemplateRef<any>;
 
   currentTemplate: TemplateRef<any> = this.template1;
 
@@ -66,6 +74,7 @@ export class TempControllerComponent
         console.log('Template1:', this.template1);
         console.log('Template2:', this.template2);
         console.log('Template3:', this.template3);
+        console.log('Template4:', this.template4);
 
         this.updateCurrentTemplate();
       });
@@ -84,9 +93,31 @@ export class TempControllerComponent
         case 3:
           this.currentTemplate = this.template3;
           break;
+        case 4:
+          this.currentTemplate = this.template2;
+          break;
         default:
           this.currentTemplate = this.template1;
       }
     }
+  }
+
+  incrm(maxValue: number, index: number) {
+    console.log('incrm chiamata ');
+    if (index < maxValue) {
+      console.log(index);
+      index += 1;
+    }
+    return index;
+  }
+
+  decrm(minValue: number, index: number) {
+    console.log('decrm chiamata ');
+    if (index > minValue) {
+      console.log(index);
+      index -= 1;
+      console.log(index);
+    }
+    return index;
   }
 }

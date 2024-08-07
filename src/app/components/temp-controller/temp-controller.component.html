@@ -27,14 +27,78 @@
     </div>
   </div>
   <ng-template #template1>
-    <div>contenuto Template 1</div>
+    <div class="d-flex justify-content-center align-items-center">
+      <button
+        class="btn btn-dark"
+        (click)="
+          currentIndexFridge = incrm(intervalValueFridge[1], currentIndexFridge)
+        "
+      >
+        +
+      </button>
+      <div>{{ currentIndexFridge }}</div>
+      <button
+        class="btn btn-dark"
+        (click)="
+          currentIndexFridge = decrm(intervalValueFridge[0], currentIndexFridge)
+        "
+      >
+        -
+      </button>
+    </div>
   </ng-template>
   <ng-template #template2>
-    <div>Contenuto Template 2</div>
+    <div class="d-flex justify-content-center align-items-center">
+      <button
+        class="btn btn-dark"
+        (click)="
+          currentIndexAirCond = incrm(interValueAirCond[1], currentIndexAirCond)
+        "
+      >
+        +
+      </button>
+      <div>{{ currentIndexAirCond }}</div>
+      <button
+        class="btn btn-dark"
+        (click)="
+          currentIndexAirCond = decrm(interValueAirCond[0], currentIndexAirCond)
+        "
+      >
+        -
+      </button>
+    </div>
   </ng-template>
 
   <ng-template #template3>
     <div>Contenuto Template 3</div>
+  </ng-template>
+
+  <ng-template #template4>
+    <div class="d-flex justify-content-center align-items-center">
+      <button
+        class="btn btn-dark"
+        (click)="
+          currentIndexTemperature = incrm(
+            interValueTemperature[1],
+            currentIndexTemperature
+          )
+        "
+      >
+        +
+      </button>
+      <div>{{ currentIndexTemperature }}</div>
+      <button
+        class="btn btn-dark"
+        (click)="
+          currentIndexTemperature = decrm(
+            interValueTemperature[0],
+            currentIndexTemperature
+          )
+        "
+      >
+        -
+      </button>
+    </div>
   </ng-template>
 
   <ng-container *ngTemplateOutlet="currentTemplate"></ng-container>
