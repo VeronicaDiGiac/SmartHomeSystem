@@ -26,80 +26,38 @@
       </div>
     </div>
   </div>
-  <ng-template #template1>
-    <div class="d-flex justify-content-center align-items-center">
-      <button
-        class="btn btn-dark"
-        (click)="
-          currentIndexFridge = incrm(intervalValueFridge[1], currentIndexFridge)
-        "
-      >
-        +
-      </button>
-      <div>{{ currentIndexFridge }}</div>
-      <button
-        class="btn btn-dark"
-        (click)="
-          currentIndexFridge = decrm(intervalValueFridge[0], currentIndexFridge)
-        "
-      >
-        -
-      </button>
-    </div>
-  </ng-template>
-  <ng-template #template2>
-    <div class="d-flex justify-content-center align-items-center">
-      <button
-        class="btn btn-dark"
-        (click)="
-          currentIndexAirCond = incrm(interValueAirCond[1], currentIndexAirCond)
-        "
-      >
-        +
-      </button>
-      <div>{{ currentIndexAirCond }}</div>
-      <button
-        class="btn btn-dark"
-        (click)="
-          currentIndexAirCond = decrm(interValueAirCond[0], currentIndexAirCond)
-        "
-      >
-        -
-      </button>
-    </div>
-  </ng-template>
 
-  <ng-template #template3>
-    <div>Contenuto Template 3</div>
-  </ng-template>
+  <ng-container [ngSwitch]="selectedDevice.id">
+    <app-temp-control-panel
+      *ngSwitchCase="1"
+      [currentIndex]="currentIndexFridge"
+      [interval]="intervalValueFridge"
+      (indexChange)="updateIndex('fridge', $event)"
+    >
+    </app-temp-control-panel>
 
-  <ng-template #template4>
-    <div class="d-flex justify-content-center align-items-center">
-      <button
-        class="btn btn-dark"
-        (click)="
-          currentIndexTemperature = incrm(
-            interValueTemperature[1],
-            currentIndexTemperature
-          )
-        "
-      >
-        +
-      </button>
-      <div>{{ currentIndexTemperature }}</div>
-      <button
-        class="btn btn-dark"
-        (click)="
-          currentIndexTemperature = decrm(
-            interValueTemperature[0],
-            currentIndexTemperature
-          )
-        "
-      >
-        -
-      </button>
-    </div>
-  </ng-template>
+    <app-temp-control-panel
+      *ngSwitchCase="2"
+      [currentIndex]="currentIndexAirCond"
+      [interval]="interValueAirCond"
+      (indexChange)="updateIndex('airCond', $event)"
+    >
+    </app-temp-control-panel>
 
-  <ng-container *ngTemplateOutlet="currentTemplate"></ng-container>
+    <app-temp-control-panel
+      *ngSwitchCase="3"
+      [currentIndex]="currentIndexLights"
+      [interval]="interValueLights"
+      (indexChange)="updateIndex('lights', $event)"
+    >
+    </app-temp-control-panel>
+
+    <app-temp-control-panel
+      *ngSwitchCase="4"
+      [currentIndex]="currentIndexTemperature"
+      [interval]="interValueTemperature"
+      (indexChange)="updateIndex('temperature', $event)"
+    >
+    </app-temp-control-panel>
+  </ng-container>
 </div>

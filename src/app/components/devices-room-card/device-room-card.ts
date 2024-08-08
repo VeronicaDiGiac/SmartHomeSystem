@@ -12,7 +12,7 @@ export class DeviceRoomCardComponent {
   @Input() datiRoomsCard!: listaDatiRoomsCardModel;
   @Output() deviceSelected: EventEmitter<any> = new EventEmitter();
 
-  selectRoom() {
+  selectedDevice() {
     this.deviceSelected.emit(this.datiRoomsCard);
   }
 }
